@@ -7,27 +7,30 @@
 #       A[i] + A[j] == a ?
 
 
-def sums_simple(A, a):
-    return sums_recursive(A, a, 0, len(A)-1)
+def sums_recursive(A, a, l, r):
+    if l == r:
+        return False
+    if a == A[l] + A[r]:
+        return True
+    if a < A[l] + A[r]:
+        return sums_recursive(A, a, l, r - 1)
+    else:
+        return sums_recursive(A, a, l + 1, r)
 
 
-def sums_recursive(A, a, i, j, f=True):
-    if i == j:        # Only one element remains?
-        return False  # If yes, couldn't find. :(
+def sum_iterative(A, a, l, r):
+    while l < r:
+        if a == A[l] + A[r]:
+            return True
+        elif a < A[l] + A[r]:
+            r -= 1
+        else:
+            l += 1
+    return False
 
-    if a == A[i] + A[j]:  # Do elements produce desired sum?
-        return True       # If yes, found. :)
+F = [4, 7, 8, 11, 12, 19]
 
-    if f:                                           # If examined right last time, examine left number this time.
-        while a - A[i] < A[j]:                      # Are numbers on right relatively too large?
-            j -= 1                                  # While yes, continue removing all too large from subset.
-        return sums_recursive(A, a, i, j, not f)    # Once no, change focus to other side.
+print(sums_recursive(F,25,0,len(F)-1))
 
-    else:                                           # If examined left last time, examine right this time.
-        while A[i] < a - A[j]:                      # Are numbers on left relatively too low?
-            i += 1                                  # While yes, continue removing all to low from subset.
-        return sums_recursive(A, a, i, j, not f)    # Once no, change focus to other side.
 
-F = [4, 7, 8, 11, 12, 20]
 
-print(int(sums_simple(F, 24)))
