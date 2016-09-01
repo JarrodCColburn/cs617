@@ -27,12 +27,17 @@ def num2comp(n, f=False):
 
 def trial(n, f=False):
     if n==0:
-        return ""
-    if n > 0 or (f and bool(n % 2)):
-        x = str(trial(int(n/2), False))
+        return str("")
+    x = str(trial(int(n / 2), f and not bool(n % 2)))
+    if n > 0 or f:
+        x += str(n % 2)
+    else:
+        x += str(int(not bool(n % 2)))
+    return str(x)
 
 print(num2bin(40))
 print(num2comp(40))
 print(num2comp(-40))
 print(num2comp(-40, True))
 
+print(trial(-40, True))
