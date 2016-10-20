@@ -1,5 +1,5 @@
 
-def unique_recursive(A, i, n):
+def nondistinct_recursive(A, i, n):
     if i == n:                      # Is only last element remaining?
         return 0                    # If yes, no more pairs to examine.
     else:                           # If no, continue examining pairs.
@@ -19,8 +19,7 @@ def distinct_recursive(A, i, n):
 
 F = [1, 1, 1, 1, 2, 2, 3, 4, 4]
 
-print(unique(F, 0, len(F) - 1))
 
-print(distinct(F, 0, len(F) - 1))
+print(nondistinct_recursive(F, 0, len(F) - 1))
 
 print(len(F))
